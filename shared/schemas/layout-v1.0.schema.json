@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actoratect.com/schemas/layout-v1.0.schema.json",
+  "title": "Layout Sync JSON v1.0.0",
+  "type": "object",
+  "required": ["version", "metadata", "objects"],
+  "properties": {
+    "version": { "type": "string" },
+    "metadata": { "$ref": "#/definitions/metadata" },
+    "objects": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/layoutObject" }
+    }
+  },
+  "definitions": {
+    "vector3Array": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["layoutName", "exportDate", "sourceApp", "coordinate"],
+      "properties": {
+        "layoutName": { "type": "string" },
+        "exportDate": { "type": "string" },
+        "sourceApp": { "type": "string" },
+        "coordinate": { "$ref": "#/definitions/coordinate" }
+      }
+    },
+    "coordinate": {
+      "type": "object",
+      "required": ["upAxis", "unit", "handedness"],
+      "properties": {
+        "upAxis": { "type": "string" },
+        "unit": { "type": "string" },
+        "handedness": { "type": "string" }
+      }
+    },
+    "layoutObject": {
+      "type": "object",
+      "required": ["id", "name", "assetName", "modelPath", "transform"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "assetName": { "type": "string" },
+        "sequence": { "type": ["string", "null"] },
+        "modelPath": { "$ref": "#/definitions/modelPath" },
+        "transform": { "$ref": "#/definitions/transform" }
+      }
+    },
+    "modelPath": {
+      "type": "object",
+      "required": ["maya", "unity"],
+      "properties": {
+        "maya": { "type": "string" },
+        "unity": { "type": "string" }
+      }
+    },
+    "transform": {
+      "type": "object",
+      "required": ["position", "rotation", "scale"],
+      "properties": {
+        "position": { "$ref": "#/definitions/vector3Array" },
+        "rotation": { "$ref": "#/definitions/vector3Array" },
+        "scale": { "$ref": "#/definitions/vector3Array" }
+      }
+    }
+  }
+}

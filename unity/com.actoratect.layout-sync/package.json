@@ -1,0 +1,17 @@
+{
+  "name": "com.actoratect.layout-sync",
+  "version": "0.1.0",
+  "displayName": "Layout Sync Tool",
+  "description": "Maya-Unity layout synchronization tool",
+  "unity": "2021.3",
+  "dependencies": {},
+  "keywords": [
+    "maya",
+    "layout",
+    "dcc",
+    "sync"
+  ],
+  "author": {
+    "name": "Actoratect"
+  }
+}

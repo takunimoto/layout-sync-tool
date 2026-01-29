@@ -1,0 +1,45 @@
+{
+  "version": "1.0.0",
+  "metadata": {
+    "layoutName": "SampleStage",
+    "exportDate": "2026-01-30T10:30:00",
+    "sourceApp": "Maya",
+    "coordinate": {
+      "upAxis": "Y",
+      "unit": "centimeter",
+      "handedness": "right"
+    }
+  },
+  "objects": [
+    {
+      "id": "building_01_001",
+      "name": "Building_01",
+      "assetName": "Building_01",
+      "sequence": "001",
+      "modelPath": {
+        "maya": "model/buildings/building_01.ma",
+        "unity": "Assets/Prefabs/Buildings/Building_01.prefab"
+      },
+      "transform": {
+        "position": [0.0, 0.0, 0.0],
+        "rotation": [0.0, 0.0, 0.0],
+        "scale": [1.0, 1.0, 1.0]
+      }
+    },
+    {
+      "id": "tree_02_015",
+      "name": "Tree_02",
+      "assetName": "Tree_02",
+      "sequence": "015",
+      "modelPath": {
+        "maya": "model/props/tree_02.ma",
+        "unity": "Assets/Prefabs/Nature/Tree_02.prefab"
+      },
+      "transform": {
+        "position": [530.0, 0.0, 1280.0],
+        "rotation": [0.0, 120.0, 0.0],
+        "scale": [1.2, 1.2, 1.2]
+      }
+    }
+  ]
+}
