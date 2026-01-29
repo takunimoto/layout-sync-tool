@@ -118,11 +118,13 @@ namespace Actoratect.LayoutSync
                 return;
             }
 
-            var placedObjects = importer.PlaceInScene(loadedLayout, parentTransform);
+            var result = importer.PlaceInScene(loadedLayout, parentTransform);
 
             EditorUtility.DisplayDialog(
                 "配置完了",
-                $"{placedObjects.Count}個のオブジェクトをシーンに配置しました",
+                $"{result.PlacedObjects.Count}個のオブジェクトをシーンに配置しました\n" +
+                $"Prefab未検出: {result.MissingPrefabCount}\n" +
+                $"親階層未検出: {result.MissingParentCount}",
                 "OK"
             );
         }

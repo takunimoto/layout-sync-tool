@@ -158,6 +158,11 @@ class LayoutSyncUI:
                 message=f"エクスポートが完了しました\n{exported_count}個のオブジェクト\n{self.output_path}",
                 button=["OK"]
             )
+            cmds.inViewMessage(
+                amg=f"<hl>{exported_count}個</hl>のオブジェクトをエクスポートしました",
+                pos="topCenter",
+                fade=True
+            )
 
 
 def show():

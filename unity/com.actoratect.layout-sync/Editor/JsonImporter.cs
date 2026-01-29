@@ -2,10 +2,18 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Actoratect.LayoutSync
 {
+    public class ImportResult
+    {
+        public List<GameObject> PlacedObjects { get; } = new List<GameObject>();
+        public int MissingPrefabCount { get; set; }
+        public int MissingParentCount { get; set; }
+    }
+
     public class JsonImporter
     {
         public LayoutJson LoadJson(string jsonPath)
@@ -29,11 +37,15 @@ namespace Actoratect.LayoutSync
             return layoutData;
         }
 
-        public List<GameObject> PlaceInScene(LayoutJson layoutData, Transform parent = null)
+        public ImportResult PlaceInScene(LayoutJson layoutData, Transform parent = null)
         {
-            List<GameObject> placedObjects = new List<GameObject>();
+            ImportResult result = new ImportResult();
+            Dictionary<string, GameObject> pathToObject = new Dictionary<string, GameObject>();
+            var ordered = layoutData.objects
+                .OrderBy(o => GetPathDepth(o.path))
+                .ToList();
 
-            foreach (var obj in layoutData.objects)
+            foreach (var obj in ordered)
             {
                 string assetName = string.IsNullOrEmpty(obj.assetName) ? obj.name : obj.assetName;
                 GameObject prefab = FindPrefabSourceUnderParent(parent, assetName);
@@ -46,6 +58,7 @@ namespace Actoratect.LayoutSync
                 if (prefab == null)
                 {
                     Debug.LogWarning($"Prefabが見つかりません: {obj.modelPath.unity} (ID: {obj.id})");
+                    result.MissingPrefabCount += 1;
                     continue;
                 }
 
@@ -53,9 +66,23 @@ namespace Actoratect.LayoutSync
                 GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
                 instance.name = obj.name;
 
-                if (parent != null)
+                Transform targetParent = null;
+                if (!string.IsNullOrEmpty(obj.parentPath) && pathToObject.TryGetValue(obj.parentPath, out var parentObj))
                 {
-                    instance.transform.SetParent(parent);
+                    targetParent = parentObj.transform;
+                }
+                else if (parent != null)
+                {
+                    targetParent = parent;
+                }
+                else if (!string.IsNullOrEmpty(obj.parentPath))
+                {
+                    result.MissingParentCount += 1;
+                }
+
+                if (targetParent != null)
+                {
+                    instance.transform.SetParent(targetParent, true);
                 }
 
                 // 座標変換して配置
@@ -70,11 +97,16 @@ namespace Actoratect.LayoutSync
                 // Undo登録
                 Undo.RegisterCreatedObjectUndo(instance, "Place Layout Object");
 
-                placedObjects.Add(instance);
+                result.PlacedObjects.Add(instance);
+
+                if (!string.IsNullOrEmpty(obj.path))
+                {
+                    pathToObject[obj.path] = instance;
+                }
             }
 
-            Debug.Log($"配置完了: {placedObjects.Count}個のオブジェクト");
-            return placedObjects;
+            Debug.Log($"配置完了: {result.PlacedObjects.Count}個のオブジェクト");
+            return result;
         }
 
         private GameObject LoadPrefab(string prefabPath)
@@ -107,6 +139,16 @@ namespace Actoratect.LayoutSync
             }
 
             return null;
+        }
+
+        private int GetPathDepth(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                return 0;
+            }
+
+            return path.Split(new[] { '|' }, System.StringSplitOptions.RemoveEmptyEntries).Length;
         }
     }
 }

@@ -40,12 +40,14 @@
     },
     "layoutObject": {
       "type": "object",
-      "required": ["id", "name", "assetName", "modelPath", "transform"],
+      "required": ["id", "name", "assetName", "path", "modelPath", "transform"],
       "properties": {
         "id": { "type": "string" },
         "name": { "type": "string" },
         "assetName": { "type": "string" },
         "sequence": { "type": ["string", "null"] },
+        "path": { "type": "string" },
+        "parentPath": { "type": ["string", "null"] },
         "modelPath": { "$ref": "#/definitions/modelPath" },
         "transform": { "$ref": "#/definitions/transform" }
       }

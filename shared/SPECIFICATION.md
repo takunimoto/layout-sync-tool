@@ -42,6 +42,8 @@ Maya ↔ Unity間でレイアウトデータを交換するためのJSON形式�
 | name | string | ○ | オブジェクト名 |
 | assetName | string | ○ | アセット名（末尾の_数字を除外） |
 | sequence | string | - | 連番（末尾の_数字） |
+| path | string | ○ | Maya DAGフルパス |
+| parentPath | string | - | 親のMaya DAGフルパス |
 | modelPath | object | ○ | モデルパス情報 |
 | transform | object | ○ | トランスフォーム情報 |
 
@@ -80,6 +82,8 @@ Maya ↔ Unity間でレイアウトデータを交換するためのJSON形式�
       "name": "Building_01_Instance_001",
       "assetName": "Building_01_Instance",
       "sequence": "001",
+      "path": "|LayoutRoot|Buildings|Building_01_Instance_001",
+      "parentPath": "|LayoutRoot|Buildings",
       "modelPath": {
         "maya": "model/building_01.ma",
         "unity": "Assets/Prefabs/Buildings/Building_01.prefab"

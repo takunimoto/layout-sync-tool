@@ -16,6 +16,8 @@
       "name": "Building_01",
       "assetName": "Building_01",
       "sequence": "001",
+      "path": "|LayoutRoot|Buildings|Building_01_001",
+      "parentPath": "|LayoutRoot|Buildings",
       "modelPath": {
         "maya": "model/buildings/building_01.ma",
         "unity": "Assets/Prefabs/Buildings/Building_01.prefab"
@@ -31,6 +33,8 @@
       "name": "Tree_02",
       "assetName": "Tree_02",
       "sequence": "015",
+      "path": "|LayoutRoot|Nature|Tree_02_015",
+      "parentPath": "|LayoutRoot|Nature",
       "modelPath": {
         "maya": "model/props/tree_02.ma",
         "unity": "Assets/Prefabs/Nature/Tree_02.prefab"
