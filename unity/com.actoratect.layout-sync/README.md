@@ -9,6 +9,17 @@
 3. 左上の「+」> Add package from disk...
 4. `com.actoratect.layout-sync/package.json`を選択
 
+### Git URLからインストール（推奨）
+
+Package Manager の「Add package from git URL...」に以下を入力:
+
+```
+https://github.com/takunimoto/layout-sync-tool.git?path=unity/com.actoratect.layout-sync
+```
+
+※ このリポジトリはルート直下に `package.json` が無いため、`?path=` を付けないと
+「package.json が見つからない」エラーになります。
+
 ## 使い方
 
 ### ツールを起動

@@ -14,6 +14,8 @@ namespace Actoratect.LayoutSync
         private JsonImporter importer = new JsonImporter();
 
         [MenuItem("Window/Actoratect/Layout Sync Tool")]
+        [MenuItem("Window/Layout Sync Tool")]
+        [MenuItem("Tools/Layout Sync Tool")]
         static void Init()
         {
             LayoutSyncWindow window = GetWindow<LayoutSyncWindow>();
